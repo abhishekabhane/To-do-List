@@ -1,0 +1,21 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<script>
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
+    });
+</script>
+
+</body>
+
+<footer>
+    &copy; Copyright
+    <script>
+        const date = new Date();
+        const year = date.getFullYear();
+        document.write(year);
+    </script>. <a style="text-decoration: none; color: rgba(0, 0, 0, 0.5);" href="https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_self_edit_top_card%3BePI5x86XSd%2BSJitP3N1iWw%3D%3D"
+        target="_blank">AA Developers.</a>
+</footer>
+
+</html>

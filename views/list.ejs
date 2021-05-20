@@ -1,0 +1,68 @@
+<%- include("header") -%>
+
+    <div class="box" id="heading">
+        <h1>
+            <%= listTitle %>
+        </h1>
+    </div>
+
+    <div class="box">
+        <% newListItems.forEach(function(item){ %>
+            <form action="/delete" method="post">
+                <div class="item">
+                    <input type="checkbox" name="checkbox" value="<%= item._id %>" onchange="this.form.submit()">
+                    <p>
+                        <%=  item.name  %>
+                    </p>
+                </div>
+                <input type="hidden" name="listName" value="<%= listTitle %>">
+            </form>
+            <% }); %>
+
+                <form class="item" action="/" method="post">
+                    <input id="output" type="text" name="newItem" placeholder="New Item" autocomplete="off">
+                    <button type="button" class="btn" data-bs-container="body" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="top" data-bs-content='Listening...' id="btnvoice" type="button" name="list" onclick="runSpeechRecognition()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-mic" viewBox="0 0 16 16">
+                            <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                            <path d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0v5zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3z"/>
+                          </svg>
+                    </button>
+                    <!-- <span id="action"></span> -->
+                    <button id="btnadd" type="submit" name="list" value="<%= listTitle %>"><svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" fill="#A683E3" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                      </svg></button>
+                </form>
+    </div>
+
+    <script>
+        function runSpeechRecognition() {
+            // get output div reference
+            var output = document.getElementById("output");
+            // get action element reference
+            var action = document.getElementById("action");
+            // new speech recognition object
+            var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            var recognition = new SpeechRecognition();
+
+            // This runs when the speech recognition service starts
+            recognition.onstart = function() {
+                // action.innerHTML = "<small>listening...</small>";
+            }
+            recognition.onend = function() {
+                // action.innerHTML = "<small>stopped.</small>";
+                recognition.stop();
+            }
+
+            // This runs when the speech recognition service returns result
+            recognition.onresult = function(event) {
+                var transcript = event.results[0][0].transcript;
+                var confidence = event.results[0][0].confidence;
+                document.getElementById("output").value = transcript;
+                // output.classList.remove("hide");
+            };
+
+            // start recognition
+            recognition.start();
+        }
+    </script>
+    <%- include("footer") -%>
